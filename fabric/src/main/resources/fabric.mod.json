@@ -5,7 +5,7 @@
     "name": "${mod_name}",
     "description": "${description}",
     "authors": [
-        ${fl_authors}
+        "${fl_authors}"
     ],
     "contact": {
         "homepage": "https://fabricmc.net/",
@@ -28,9 +28,6 @@
         "fabric-api": ">=${fabric_api_version}",
         "minecraft": "${fl_minecraft_constraint}",
         "java": ">=${java_version}"
-    },
-    "suggests": {
-        "another-mod": "*"
     }
 }
   

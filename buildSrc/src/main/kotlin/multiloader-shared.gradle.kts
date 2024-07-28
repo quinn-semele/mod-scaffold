@@ -65,7 +65,7 @@ tasks.processResources {
         "description" to Constants.DESCRIPTION,
 
         "nf_authors" to Constants.AUTHORS.keys.joinToString(","),
-        "fl_authors" to Constants.AUTHORS.keys.joinToString(",\n\t\t") { "\"$it\"" },
+        "fl_authors" to Constants.AUTHORS.keys.joinToString("\", \""),
 
         "credits" to Constants.CREDITS.map { "${it.key} - ${it.value}" }.joinToString(",\n"),
 
