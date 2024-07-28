@@ -16,6 +16,11 @@ java {
 repositories {
     mavenCentral()
 
+    maven {
+        name = "Sonatype Snapshots"
+        url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+    }
+
     exclusiveContent {
         forRepository {
             maven {
@@ -39,6 +44,14 @@ repositories {
         )
         filter { includeGroup("org.parchmentmc.data") }
     }
+}
+
+dependencies {
+    annotationProcessor(group = "systems.manifold", name = "manifold-preprocessor", version = Constants.MANIFOLD_VERSION)
+}
+
+tasks.withType<JavaCompile> {
+    options.compilerArgs.add("-Xplugin:Manifold")
 }
 
 tasks.jar {

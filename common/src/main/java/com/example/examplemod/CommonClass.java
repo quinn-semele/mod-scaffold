@@ -26,6 +26,15 @@ public class CommonClass {
         if (Services.PLATFORM.isModLoaded("examplemod")) {
 
             Constants.LOG.info("Hello to examplemod");
+
+            #if LOADER == "NEOFORGE"
+            Constants.LOG.info("Hello Neoforge :D");
+            Constants.LOG.info("Hello Neoforge :D");
+            Constants.LOG.info("Hello Neoforge :D");
+            Constants.LOG.info("Hello Neoforge :D");
+            Constants.LOG.info("Hello Neoforge :D");
+            Constants.LOG.info("Hello Neoforge :D");
+            #endif
         }
     }
 }

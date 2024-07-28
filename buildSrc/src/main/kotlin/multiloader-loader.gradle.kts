@@ -8,9 +8,9 @@ configurations {
 }
 
 dependencies {
-    compileOnly(project(":common"))
+    compileOnly(project(":common", configuration="${project.name}Java"))
 
-    "commonJava"(project(path=":common", configuration="commonJava"))
+    "commonJava"(project(path=":common", configuration="${project.name}Java"))
     "commonResources"(project(path=":common", configuration="commonResources"))
 }
 

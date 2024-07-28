@@ -19,6 +19,8 @@ object Constants {
     )
 
     val JAVA_VERSION = JavaLanguageVersion.of(21)
+    const val MANIFOLD_VERSION = "2024.1.29"
+
     const val MINECRAFT_VERSION = "1.21"
     const val FL_MINECRAFT_CONSTRAINT = ">=1.21- <1.22"
     const val NF_MINECRAFT_CONSTRAINT = "[1.21, 1.22)"
