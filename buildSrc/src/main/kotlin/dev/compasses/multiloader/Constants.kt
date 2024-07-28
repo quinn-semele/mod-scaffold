@@ -3,9 +3,6 @@ package dev.compasses.multiloader
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 
 object Constants {
-    const val LOOM_VERSION = "1.7-SNAPSHOT" // https://fabricmc.net/develop/
-    const val MOD_DEV_GRADLE_VERSION = "0.1.110" // https://projects.neoforged.net/neoforged/moddevgradle/
-
     const val GROUP = "com.example.examplemod"
     const val MOD_ID = "examplemod"
     const val MOD_NAME = "Example Mod"
