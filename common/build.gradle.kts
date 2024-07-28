@@ -8,12 +8,6 @@ plugins {
 neoForge {
     neoFormVersion = Constants.NEOFORM_VERSION
 
-    // Automatically enable AccessTransformers if the file exists
-    val at = file("src/main/resources/META-INF/accesstransformer.cfg")
-    if (at.exists()) {
-        accessTransformers.add(at.absolutePath)
-    }
-
     parchment {
         minecraftVersion = Constants.PARCHMENT_MINECRAFT
         mappingsVersion = Constants.PARCHMENT_RELEASE

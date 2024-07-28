@@ -8,11 +8,7 @@ plugins {
 neoForge {
     version = Constants.NEOFORGE_VERSION
 
-    // Automatically enable neoforge AccessTransformers if the file exists
-    val at = project(":common").file("src/main/resources/META-INF/accesstransformer.cfg")
-    if (at.exists()) {
-        accessTransformers.add(at.absolutePath)
-    }
+    accessTransformers.from(project(":common").neoForge.accessTransformers.files)
 
     parchment {
         minecraftVersion = Constants.PARCHMENT_MINECRAFT
