@@ -4,10 +4,13 @@ plugins {
     `java-library`
 }
 
-base.archivesName = "${Constants.modId}-${project.name}-${Constants.minecraftVersion}"
+group = Constants.GROUP
+version = Constants.MOD_VERSION
+
+base.archivesName = "${Constants.MOD_ID}-${project.name}-${Constants.MINECRAFT_VERSION}"
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(Constants.javaVersion.ordinal + 1)
+    toolchain.languageVersion = Constants.JAVA_VERSION
 }
 
 repositories {
@@ -41,13 +44,13 @@ repositories {
 tasks.jar {
     manifest {
         attributes(mapOf(
-            "Specification-Title" to Constants.modName,
-            "Specification-Vendor" to Constants.authors.firstEntry().key,
+            "Specification-Title" to Constants.MOD_NAME,
+            "Specification-Vendor" to Constants.AUTHORS.firstEntry().key,
             "Specification-Version" to archiveVersion,
             "Implementation-Title" to project.name,
             "Implementation-Version" to archiveVersion,
-            "Implementation-Vendor" to Constants.authors.firstEntry().key,
-            "Built-On-Minecraft" to Constants.minecraftVersion
+            "Implementation-Vendor" to Constants.AUTHORS.firstEntry().key,
+            "Built-On-Minecraft" to Constants.MINECRAFT_VERSION
         ))
     }
 }
@@ -55,27 +58,27 @@ tasks.jar {
 tasks.processResources {
     val replacements = mutableMapOf(
         "version" to version,
-        "group" to Constants.group,
-        "mod_name" to Constants.modName,
-        "mod_id" to Constants.modId,
-        "license" to Constants.license,
-        "description" to Constants.description,
+        "group" to Constants.GROUP,
+        "mod_name" to Constants.MOD_NAME,
+        "mod_id" to Constants.MOD_ID,
+        "license" to Constants.LICENSE,
+        "description" to Constants.DESCRIPTION,
 
-        "nf_authors" to Constants.authors.keys.joinToString(","),
-        "fl_authors" to Constants.authors.keys.joinToString(",\n\t\t") { "\"$it\"" },
+        "nf_authors" to Constants.AUTHORS.keys.joinToString(","),
+        "fl_authors" to Constants.AUTHORS.keys.joinToString(",\n\t\t") { "\"$it\"" },
 
-        "credits" to Constants.credits.map { "${it.key} - ${it.value}" }.joinToString(",\n"),
+        "credits" to Constants.CREDITS.map { "${it.key} - ${it.value}" }.joinToString(",\n"),
 
-        "java_version" to java.toolchain.languageVersion.get().asInt(),
-        "minecraft_version" to Constants.minecraftVersion,
-        "fl_minecraft_constraint" to Constants.flMinecraftConstraint,
-        "nf_minecraft_constraint" to Constants.nfMinecraftConstraint,
+        "java_version" to Constants.JAVA_VERSION.asInt(),
+        "minecraft_version" to Constants.MINECRAFT_VERSION,
+        "fl_minecraft_constraint" to Constants.FL_MINECRAFT_CONSTRAINT,
+        "nf_minecraft_constraint" to Constants.NF_MINECRAFT_CONSTRAINT,
 
-        "fabric_loader_version" to Constants.fabricLoaderVersion,
-        "fabric_api_version" to Constants.fabricApiVersion,
+        "fabric_loader_version" to Constants.FABRIC_LOADER_VERSION,
+        "fabric_api_version" to Constants.FABRIC_API_VERSION,
 
-        "neoforge_version" to Constants.neoForgeVersion,
-        "fml_version_constraint" to Constants.fmlVersionConstraint,
+        "neoforge_version" to Constants.NEOFORGE_VERSION,
+        "fml_version_constraint" to Constants.FML_CONSTRAINT,
     )
 
     inputs.properties(replacements)
