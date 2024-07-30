@@ -11,7 +11,8 @@ object Constants {
     const val DESCRIPTION = ""
 
     val AUTHORS = linkedMapOf(
-        "Quinn Semele" to "Project Owner"
+        "Quinn Semele" to "Project Owner",
+        "Ellie Semele" to "Project Owner"
     )
 
     val CREDITS = linkedMapOf<String, String>(
@@ -32,7 +33,7 @@ object Constants {
     const val PARCHMENT_RELEASE = "2024.07.07"
 
     // https://fabricmc.net/develop/
-    const val FABRIC_API_VERSION = "0.100.1+1.21"
+    const val FABRIC_API_VERSION = "0.100.8+1.21"
     const val FABRIC_LOADER_VERSION = "0.15.11"
 
     const val NEOFORM_VERSION = "1.21-20240613.152323" // // https://projects.neoforged.net/neoforged/neoform/
