@@ -10,4 +10,4 @@ plugins {
 
 rootProject.name = "mod-scaffold"
 
-include("common", "fabric", "neoforge")
+include("common", "thread", "neoforge")
