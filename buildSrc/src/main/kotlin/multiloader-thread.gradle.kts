@@ -1,6 +1,7 @@
 import dev.compasses.multiloader.Constants
 import gradle.kotlin.dsl.accessors._cbfc74c95d5f89f5a9d8d1cb7ae6b5ef.main
 import gradle.kotlin.dsl.accessors._cbfc74c95d5f89f5a9d8d1cb7ae6b5ef.sourceSets
+import org.gradle.kotlin.dsl.invoke
 
 plugins {
     id("multiloader-loader")
@@ -44,7 +45,7 @@ loom {
         named("client") {
             client()
 
-            configName = "Fabric Client"
+            configName = "Thread Client"
             isIdeConfigGenerated = true
             runDir = "runs/client"
         }
@@ -52,9 +53,20 @@ loom {
         named("server") {
             server()
 
-            configName = "Fabric Server"
+            configName = "Thread Server"
             isIdeConfigGenerated = true
             runDir = "runs/server"
         }
     }
+}
+
+configurations {
+    create("threadJava") { isCanBeResolved = false; isCanBeConsumed = true }
+    create("threadResources") { isCanBeResolved = false; isCanBeConsumed = true }
+}
+
+artifacts {
+    add("threadJava", sourceSets.main.map { it.java.sourceDirectories.singleFile })
+    add("threadResources", sourceSets.main.map { it.resources.sourceDirectories.first() })
+    add("threadResources", sourceSets.main.map { it.resources.sourceDirectories.last() })
 }

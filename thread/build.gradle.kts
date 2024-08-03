@@ -1,3 +1,3 @@
 plugins {
-    id("multiloader-fabric")
+    id("multiloader-thread")
 }
