@@ -1,6 +1,5 @@
 package dev.compasses.multiloader
 
-import org.gradle.api.JavaVersion
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 
 object Constants {
@@ -11,13 +10,19 @@ object Constants {
     const val LICENSE = "CC0-1.0"
     const val DESCRIPTION = ""
 
-    const val CURSEFORGE_PROJECT_ID = "000000"
-    const val CURSEFORGE_PROJECT_SLUG = "examplemod"
-    const val SERVERSIDE_REQUIRED = true
-    const val CLIENTSIDE_REQUIRED = true
-    val JAVA_VERSIONS_SUPPORTED = listOf(JavaVersion.VERSION_21, JavaVersion.VERSION_22)
-    const val MODRINTH_PROJECT_ID = "00000000"
-    const val compareUrl = "https://www.example.com/author/repo/compare/"
+    @Suppress("RedundantNullableReturnType")
+    val curseforgeProperties: CurseForgeProperties? = object : CurseForgeProperties() {
+        override val projectId = "000000"
+        override val projectSlug = "examplemod"
+
+    }
+
+    @Suppress("RedundantNullableReturnType")
+    val modrinthProperties: ModrinthProperties? = object : ModrinthProperties() {
+        override val projectId: String = "000000"
+    }
+
+    const val COMPARE_URL = "https://www.example.com/author/repo/compare/"
 
     val AUTHORS = linkedMapOf(
         "Quinn Semele" to "Project Owner",

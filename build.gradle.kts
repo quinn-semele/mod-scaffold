@@ -14,6 +14,9 @@ tasks.wrapper {
     distributionType = Wrapper.DistributionType.BIN
 }
 
+// This feels like a hack but I can't really think of a way to do this properly.
+evaluationDependsOnChildren()
+
 val projectsToPublish = mapOf(
     "NeoForge" to findProject(":neoforge"),
     "Fabric" to findProject(":fabric"),
@@ -28,27 +31,31 @@ val modChangelog = providers.provider {
         appendLine(file("changelog.md").readText(Charsets.UTF_8).trimEnd())
         appendLine()
         if (compareTag.isNotBlank()) {
-            appendLine("A detailed changelog can be found [here](${Constants.compareUrl}${compareTag}...${commitHash}).")
+            appendLine("A detailed changelog can be found [here](${Constants.COMPARE_URL}${compareTag}...${commitHash}).")
         } else {
             appendLine("A detailed changelog could not be made for this release, sorry.")
         }
     }
 }
 
-val curseforgeOptions = publishMods.curseforgeOptions {
-    accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
-    projectId = Constants.CURSEFORGE_PROJECT_ID
-    projectSlug = Constants.CURSEFORGE_PROJECT_SLUG
-    minecraftVersions = listOf(Constants.MINECRAFT_VERSION)
-    clientRequired = Constants.CLIENTSIDE_REQUIRED
-    serverRequired = Constants.SERVERSIDE_REQUIRED
-    javaVersions = Constants.JAVA_VERSIONS_SUPPORTED
+val curseforgeOptions = Constants.curseforgeProperties?.let { props ->
+    publishMods.curseforgeOptions {
+        accessToken = providers.environmentVariable(props.uploadToken)
+        projectId = props.projectId
+        projectSlug = props.projectSlug
+        minecraftVersions = listOf(Constants.MINECRAFT_VERSION)
+        clientRequired = props.clientSideRequired
+        serverRequired = props.serverSideRequired
+        javaVersions = props.supportedJavaVersions
+    }
 }
 
-val modrinthOptions = publishMods.modrinthOptions {
-    accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-    projectId = Constants.MODRINTH_PROJECT_ID
-    minecraftVersions = listOf(Constants.MINECRAFT_VERSION)
+val modrinthOptions = Constants.modrinthProperties?.let { props ->
+    publishMods.modrinthOptions {
+        accessToken = providers.environmentVariable(props.uploadToken)
+        projectId = props.projectId
+        minecraftVersions = listOf(Constants.MINECRAFT_VERSION)
+    }
 }
 
 publishMods {
@@ -62,37 +69,41 @@ publishMods {
     }
 
     dryRun = providers.provider {
-        (Constants.CURSEFORGE_PROJECT_ID != "000000" && !curseforgeOptions.get().accessToken.isPresent) ||
-                 (Constants.MODRINTH_PROJECT_ID != "00000000" && !modrinthOptions.get().accessToken.isPresent)
+        (Constants.curseforgeProperties != null && !curseforgeOptions!!.get().accessToken.isPresent) ||
+                 (Constants.modrinthProperties != null && !modrinthOptions!!.get().accessToken.isPresent)
     }
 }
 
 val publishTasks = projectsToPublish.map { (name, loader) ->
-    Pair(name, buildList {
-        if (Constants.CURSEFORGE_PROJECT_ID != "000000") {
+    name to buildList {
+        Constants.curseforgeProperties?.run {
             add(publishMods.curseforge("CurseForge$name") {
-                from(curseforgeOptions)
+                from(curseforgeOptions!!)
+                displayName = "$name ${loader.version}"
+                version = "${Constants.MOD_VERSION}+${name.lowercase()}"
                 modLoaders.add(name.lowercase())
 
                 file = if (loader.extensions.findByName("loom") != null) {
-                    loader.tasks.getByName("remapJar", Jar::class).archiveFile
+                    loader.tasks.getByName("remapJar", AbstractArchiveTask::class).archiveFile
                 } else {
-                    loader.tasks.getByName("jar", Jar::class).archiveFile
+                    loader.tasks.getByName("jar", AbstractArchiveTask::class).archiveFile
                 }
             })
         }
 
-        if (Constants.MODRINTH_PROJECT_ID != "00000000") {
+        Constants.modrinthProperties?.run {
             add(publishMods.modrinth("Modrinth$name") {
-                from(modrinthOptions)
+                from(modrinthOptions!!)
+                displayName = "$name ${loader.version}"
+                version = "${Constants.MOD_VERSION}+${name.lowercase()}"
                 modLoaders.add(name.lowercase())
 
                 file = if (loader.extensions.findByName("loom") != null) {
-                    loader.tasks.getByName("remapJar", Jar::class).archiveFile
+                    loader.tasks.getByName("remapJar", AbstractArchiveTask::class).archiveFile
                 } else {
-                    loader.tasks.getByName("jar", Jar::class).archiveFile
+                    loader.tasks.getByName("jar", AbstractArchiveTask::class).archiveFile
                 }
             })
         }
-    })
+    }
 }.toMap()
