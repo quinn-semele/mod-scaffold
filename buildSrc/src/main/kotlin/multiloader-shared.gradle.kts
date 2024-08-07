@@ -1,4 +1,5 @@
 import dev.compasses.multiloader.Constants
+import dev.compasses.multiloader.extension.MultiLoaderExtension
 
 plugins {
     `java-library`
@@ -8,6 +9,8 @@ group = Constants.GROUP
 version = Constants.MOD_VERSION
 
 base.archivesName = "${Constants.MOD_ID}-${project.name}-${Constants.MINECRAFT_VERSION}"
+
+extensions.create("multiloader", MultiLoaderExtension::class, project)
 
 java {
     toolchain.languageVersion = Constants.JAVA_VERSION
