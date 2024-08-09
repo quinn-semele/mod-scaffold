@@ -1,3 +1,4 @@
+import dev.compasses.multiloader.Constants
 import dev.compasses.multiloader.extension.DependencyType
 
 plugins {
@@ -16,8 +17,8 @@ multiloader {
             )
 
             artifacts {
-                modImplementation(group = "org.quiltmc", name = "quilt-loader", version = "0.25.0")
-                modImplementation(group = "org.quiltmc.quilted-fabric-api", name = "quilted-fabric-api", version = "11.0.0-alpha.3+0.100.7-1.21")
+                modImplementation(group = "org.quiltmc", name = "quilt-loader", version = Constants.QUILT_LOADER_VERSION)
+                modImplementation(group = "org.quiltmc.quilted-fabric-api", name = "quilted-fabric-api", version = Constants.QUILT_API_VERSION)
             }
         }
     }

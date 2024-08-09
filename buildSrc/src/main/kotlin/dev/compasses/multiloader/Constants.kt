@@ -47,8 +47,12 @@ object Constants {
     const val PARCHMENT_RELEASE = "2024.07.07"
 
     // https://fabricmc.net/develop/
-    const val FABRIC_API_VERSION = "0.100.8+1.21"
+    const val FABRIC_API_VERSION = "0.102.0+1.21"
     const val FABRIC_LOADER_VERSION = "0.15.11"
+
+    // https://quiltmc.org/en/usage/latest-versions/
+    const val QUILT_API_VERSION = "11.0.0-alpha.3+0.100.7-1.21"
+    const val QUILT_LOADER_VERSION = "0.25.0"
 
     const val NEOFORM_VERSION = "1.21-20240613.152323" // // https://projects.neoforged.net/neoforged/neoform/
     const val NEOFORGE_VERSION = "21.0.143" // https://projects.neoforged.net/neoforged/neoforge/
