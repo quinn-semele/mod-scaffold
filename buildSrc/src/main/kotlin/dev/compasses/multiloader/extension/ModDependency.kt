@@ -13,18 +13,12 @@ abstract class ModDependency : Named {
     abstract val curseforgeName: Property<String>
     abstract val type: Property<DependencyType>
 
-    init {
-        modrinthName.convention(name)
-        curseforgeName.convention(name)
-        type.convention(DependencyType.OPTIONAL)
-    }
-
     fun freezeProperties() {
         isFrozen = true
 
-        modrinthName.finalizeValue()
-        curseforgeName.finalizeValue()
-        type.finalizeValue()
+        modrinthName.convention(name).finalizeValue()
+        curseforgeName.convention(name).finalizeValue()
+        type.convention(DependencyType.OPTIONAL).finalizeValue()
     }
 
     fun requiresRepo(name: String, url: String, groups: Set<String> = setOf()) {

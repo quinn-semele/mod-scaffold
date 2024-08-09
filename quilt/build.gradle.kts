@@ -9,10 +9,11 @@ multiloader {
         create("qsl") {
             type = DependencyType.REQUIRED
 
-            requiresRepo("QuiltMC Maven", "https://maven.quiltmc.org/repository/release/", listOf(
+            requiresRepo("QuiltMC Maven", "https://maven.quiltmc.org/repository/release/", setOf(
                 "org.quiltmc",
                 "org.quiltmc.quilted-fabric-api"
-            ))
+            )
+            )
 
             artifacts {
                 modImplementation(group = "org.quiltmc", name = "quilt-loader", version = "0.25.0")

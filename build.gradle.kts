@@ -1,4 +1,7 @@
 import dev.compasses.multiloader.Constants
+import dev.compasses.multiloader.extension.DependencyType
+import dev.compasses.multiloader.extension.MultiLoaderExtension
+import dev.compasses.multiloader.extension.UploadTarget
 import me.modmuss50.mpp.ReleaseType
 import org.codehaus.groovy.runtime.ProcessGroovyMethods
 
@@ -88,6 +91,13 @@ val publishTasks = projectsToPublish.map { (name, loader) ->
                 } else {
                     loader.tasks.getByName("jar", AbstractArchiveTask::class).archiveFile
                 }
+
+                dependencies {
+                    val multiloaderExt = loader.extensions.getByName<MultiLoaderExtension>("multiloader")
+
+                    optional(*multiloaderExt.getDependencyIds(UploadTarget.CURSEFORGE, DependencyType.OPTIONAL).toTypedArray())
+                    requires(*multiloaderExt.getDependencyIds(UploadTarget.CURSEFORGE, DependencyType.REQUIRED).toTypedArray())
+                }
             })
         }
 
@@ -102,6 +112,13 @@ val publishTasks = projectsToPublish.map { (name, loader) ->
                     loader.tasks.getByName("remapJar", AbstractArchiveTask::class).archiveFile
                 } else {
                     loader.tasks.getByName("jar", AbstractArchiveTask::class).archiveFile
+                }
+
+                dependencies {
+                    val multiloaderExt = loader.extensions.getByName<MultiLoaderExtension>("multiloader")
+
+                    optional(*multiloaderExt.getDependencyIds(UploadTarget.MODRINTH, DependencyType.OPTIONAL).toTypedArray())
+                    requires(*multiloaderExt.getDependencyIds(UploadTarget.MODRINTH, DependencyType.REQUIRED).toTypedArray())
                 }
             })
         }
