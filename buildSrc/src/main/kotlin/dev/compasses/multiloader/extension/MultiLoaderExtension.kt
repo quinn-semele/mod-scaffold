@@ -65,7 +65,7 @@ abstract class MultiLoaderExtension(val project: Project) {
         val dependencyHandler = project.dependencies
 
         for (dependency in getDependenciesSafe()) {
-            if (dependency.name in mods) {
+            if (dependency.type.get() == DependencyType.OPTIONAL && dependency.name in mods) {
                 dependency.getArtifacts().invoke(dependencyHandler, true)
             }
         }
