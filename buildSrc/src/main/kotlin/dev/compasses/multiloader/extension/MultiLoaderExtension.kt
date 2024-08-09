@@ -57,7 +57,17 @@ abstract class MultiLoaderExtension(val project: Project) {
 
         val dependencyHandler = project.dependencies
         _dependencies.forEach {
-            it.getArtifacts().invoke(dependencyHandler)
+            it.getArtifacts().invoke(dependencyHandler, false)
+        }
+    }
+
+    fun runtimeMods(vararg mods: String) {
+        val dependencyHandler = project.dependencies
+
+        for (dependency in getDependenciesSafe()) {
+            if (dependency.name in mods) {
+                dependency.getArtifacts().invoke(dependencyHandler, true)
+            }
         }
     }
 
