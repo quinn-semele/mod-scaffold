@@ -2,6 +2,9 @@ import dev.compasses.multiloader.Constants
 import dev.compasses.multiloader.extension.DependencyType
 import dev.compasses.multiloader.extension.MultiLoaderExtension
 import dev.compasses.multiloader.extension.UploadTarget
+import me.modmuss50.mpp.Platform
+import me.modmuss50.mpp.PublishModTask
+import me.modmuss50.mpp.PublishResult
 import me.modmuss50.mpp.ReleaseType
 import org.codehaus.groovy.runtime.ProcessGroovyMethods
 
@@ -98,7 +101,7 @@ val publishTasks = projectsToPublish.map { (name, loader) ->
                     optional(*multiloaderExt.getDependencyIds(UploadTarget.CURSEFORGE, DependencyType.OPTIONAL).toTypedArray())
                     requires(*multiloaderExt.getDependencyIds(UploadTarget.CURSEFORGE, DependencyType.REQUIRED).toTypedArray())
                 }
-            })
+            } as NamedDomainObjectProvider<Platform>)
         }
 
         Constants.modrinthProperties?.run {
@@ -120,7 +123,26 @@ val publishTasks = projectsToPublish.map { (name, loader) ->
                     optional(*multiloaderExt.getDependencyIds(UploadTarget.MODRINTH, DependencyType.OPTIONAL).toTypedArray())
                     requires(*multiloaderExt.getDependencyIds(UploadTarget.MODRINTH, DependencyType.REQUIRED).toTypedArray())
                 }
-            })
+            } as NamedDomainObjectProvider<Platform>)
         }
     }
 }.toMap()
+
+// todo: will need to rethink for when changing to GitHub CI
+tasks.publishMods {
+    doLast {
+        val results = publishTasks.mapValues { (_, publishTasks) -> publishTasks.map { task ->
+            PublishResult.fromJson(tasks.getByName<PublishModTask>(task.get().taskName).result.get().asFile.readText(Charsets.UTF_8))
+        } }
+
+        val cfLinks = results.mapValues { it.value.firstOrNull { it.type == "curseforge" } }.filter { it.value != null }.mapValues { it.value!!.link }
+        val mrLinks = results.mapValues { it.value.firstOrNull { it.type == "modrinth" } }.filter { it.value != null }.mapValues { it.value!!.link }
+
+        println("""
+            |**${Constants.MOD_NAME} ${Constants.MOD_VERSION}** for **${Constants.MINECRAFT_VERSION}**
+            |${modChangelog.get()}
+            |:curseforge: ${cfLinks.map { "[${it.key}](<${it.value}>)" }.joinToString(" | ")}
+            |:modrinth: ${mrLinks.map { "[${it.key}](<${it.value}>)" }.joinToString(" | ")}
+        """.trimMargin().trim())
+    }
+}
