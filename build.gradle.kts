@@ -149,6 +149,6 @@ tasks.publishMods {
 
 tasks.register("logVersion") {
     doFirst {
-        println(Constants.MOD_VERSION)
+        println("mod-version=${Constants.MOD_VERSION}")
     }
 }
