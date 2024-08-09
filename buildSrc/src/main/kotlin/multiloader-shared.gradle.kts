@@ -67,8 +67,9 @@ tasks.processResources {
         "license" to Constants.LICENSE,
         "description" to Constants.DESCRIPTION,
 
-        "nf_authors" to Constants.AUTHORS.keys.joinToString(","),
         "fl_authors" to Constants.AUTHORS.keys.joinToString("\", \""),
+        "ql_authors" to Constants.AUTHORS.map { """${it.key}": "${it.value}""" }.joinToString("\",\n\""),
+        "nf_authors" to Constants.AUTHORS.keys.joinToString(","),
 
         "credits" to Constants.CREDITS.map { "${it.key} - ${it.value}" }.joinToString(",\n"),
 
@@ -80,12 +81,15 @@ tasks.processResources {
         "fabric_loader_version" to Constants.FABRIC_LOADER_VERSION,
         "fabric_api_version" to Constants.FABRIC_API_VERSION,
 
+        "quilt_loader_version" to Constants.QUILT_LOADER_VERSION,
+        "quilt_api_version" to Constants.QUILT_API_VERSION,
+
         "neoforge_version" to Constants.NEOFORGE_VERSION,
         "fml_version_constraint" to Constants.FML_CONSTRAINT,
     )
 
     inputs.properties(replacements)
-    filesMatching(listOf("fabric.mod.json", "META-INF/neoforge.mods.toml", "*.mixins.json")) {
+    filesMatching(listOf("fabric.mod.json", "quilt.mod.json", "META-INF/neoforge.mods.toml", "*.mixins.json")) {
         expand(replacements)
     }
 }

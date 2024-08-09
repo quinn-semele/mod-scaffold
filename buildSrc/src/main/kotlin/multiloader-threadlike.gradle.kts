@@ -42,7 +42,9 @@ tasks {
 
     processResources {
         dependsOn(configurations.getByName("threadResources"))
-        from(configurations.getByName("threadResources"))
+        from(configurations.getByName("threadResources")) {
+            exclude("fabric.mod.json")
+        }
     }
 }
 
