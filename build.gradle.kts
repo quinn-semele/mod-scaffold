@@ -146,3 +146,9 @@ tasks.publishMods {
         """.trimMargin().trim())
     }
 }
+
+tasks.register("logVersion") {
+    doFirst {
+        println(Constants.MOD_VERSION)
+    }
+}
