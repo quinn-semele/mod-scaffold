@@ -2,6 +2,8 @@ name: release
 on: workflow_dispatch
 jobs:
   release:
+    permissions:
+      contents: write
     strategy:
       matrix:
         java: [
