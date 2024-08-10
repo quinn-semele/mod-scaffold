@@ -42,6 +42,30 @@ repositories {
         )
         filter { includeGroup("org.parchmentmc.data") }
     }
+
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Unofficial CurseForge Maven"
+                url = uri("https://cursemaven.com/")
+            }
+        }
+        filter {
+            includeGroup("curse.maven")
+        }
+    }
+
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth Maven"
+                url = uri("https://api.modrinth.com/maven/")
+            }
+        }
+        filter {
+            includeGroup("maven.modrinth")
+        }
+    }
 }
 
 dependencies {
