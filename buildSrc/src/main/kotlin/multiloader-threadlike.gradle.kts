@@ -55,5 +55,8 @@ loom {
     }
 
     @Suppress("UnstableApiUsage")
-    mixin.defaultRefmapName = "${Constants.MOD_ID}.refmap.json"
+    mixin {
+        defaultRefmapName = "${Constants.MOD_ID}.refmap.json"
+        useLegacyMixinAp = false
+    }
 }
