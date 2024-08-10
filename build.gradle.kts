@@ -7,6 +7,10 @@ import me.modmuss50.mpp.PublishModTask
 import me.modmuss50.mpp.PublishResult
 import me.modmuss50.mpp.ReleaseType
 import org.codehaus.groovy.runtime.ProcessGroovyMethods
+import java.net.http.HttpClient
+import java.net.http.HttpRequest
+import java.net.http.HttpRequest.BodyPublishers
+import java.net.http.HttpResponse
 
 plugins {
     id("me.modmuss50.mod-publish-plugin") version "0.6.3"
@@ -128,22 +132,40 @@ val publishTasks = projectsToPublish.map { (name, loader) ->
     }
 }.toMap()
 
-// todo: will need to rethink for when changing to GitHub CI
 tasks.publishMods {
     doLast {
-        val results = publishTasks.mapValues { (_, publishTasks) -> publishTasks.map { task ->
-            PublishResult.fromJson(tasks.getByName<PublishModTask>(task.get().taskName).result.get().asFile.readText(Charsets.UTF_8))
-        } }
+        val environmentVariable = providers.environmentVariable(Constants.PUBLISH_WEBHOOK_VARIABLE)
 
-        val cfLinks = results.mapValues { it.value.firstOrNull { it.type == "curseforge" } }.filter { it.value != null }.mapValues { it.value!!.link }
-        val mrLinks = results.mapValues { it.value.firstOrNull { it.type == "modrinth" } }.filter { it.value != null }.mapValues { it.value!!.link }
+        if (environmentVariable.isPresent) {
+            val uri = uri(environmentVariable.get())
 
-        println("""
-            |**${Constants.MOD_NAME} ${Constants.MOD_VERSION}** for **${Constants.MINECRAFT_VERSION}**
-            |${modChangelog.get()}
-            |:curseforge: ${cfLinks.map { "[${it.key}](<${it.value}>)" }.joinToString(" | ")}
-            |:modrinth: ${mrLinks.map { "[${it.key}](<${it.value}>)" }.joinToString(" | ")}
-        """.trimMargin().trim())
+            val results = publishTasks.mapValues { (_, publishTasks) -> publishTasks.map { task ->
+                PublishResult.fromJson(tasks.getByName<PublishModTask>(task.get().taskName).result.get().asFile.readText(Charsets.UTF_8))
+            } }
+
+            val cfLinks = results.mapValues { it.value.firstOrNull { it.type == "curseforge" } }.filter { it.value != null }.mapValues { it.value!!.link }
+            val mrLinks = results.mapValues { it.value.firstOrNull { it.type == "modrinth" } }.filter { it.value != null }.mapValues { it.value!!.link }
+
+            val payload = buildString {
+                append("""{"content": """")
+
+                append("""
+                    |**${Constants.MOD_NAME} ${Constants.MOD_VERSION}** for **${Constants.MINECRAFT_VERSION}**
+                    |${modChangelog.get()}
+                    |:curseforge: ${cfLinks.map { "[${it.key}](<${it.value}>)" }.joinToString(" | ")}
+                    |:modrinth: ${mrLinks.map { "[${it.key}](<${it.value}>)" }.joinToString(" | ")}
+                """.trimMargin().trim().replace("\n", "\\n"))
+
+                append(""""}""")
+            }
+
+            val request = HttpRequest.newBuilder(uri).header("Content-Type", "application/json").POST(BodyPublishers.ofString(payload)).build()
+            val response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString())
+
+            if (response.statusCode() !in 200..299) {
+                project.logger.error("Failed to publish release notes to webhook:\n${response.body()}")
+            }
+        }
     }
 }
 

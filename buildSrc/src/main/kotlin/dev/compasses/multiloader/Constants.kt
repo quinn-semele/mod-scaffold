@@ -22,6 +22,8 @@ object Constants {
         override val projectId: String = "000000"
     }
 
+    const val PUBLISH_WEBHOOK_VARIABLE = "PUBLISH_WEBHOOK"
+
     const val COMPARE_URL = "https://www.example.com/author/repo/compare/"
 
     val AUTHORS = linkedMapOf(
