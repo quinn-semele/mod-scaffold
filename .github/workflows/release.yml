@@ -28,9 +28,9 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
       - name: publish mod
         run: ./gradlew :publishMods
-#        env:
-#          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
-#          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
       - name: grab mod version
         id: grab_version
         run: ./gradlew -q :logVersion >> "$GITHUB_OUTPUT"
