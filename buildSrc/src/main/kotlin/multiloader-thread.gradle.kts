@@ -46,7 +46,6 @@ loom {
 
             configName = "Thread Client"
             isIdeConfigGenerated = true
-            runDir = "runs/client"
         }
 
         named("server") {
@@ -54,7 +53,6 @@ loom {
 
             configName = "Thread Server"
             isIdeConfigGenerated = true
-            runDir = "runs/server"
         }
     }
 }
