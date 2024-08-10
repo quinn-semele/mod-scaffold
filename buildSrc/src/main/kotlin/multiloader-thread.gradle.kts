@@ -28,10 +28,6 @@ fabricApi {
     }
 }
 
-sourceSets.main {
-    resources.srcDirs("src/generated/resources")
-}
-
 loom {
     val accessWidener = project(":common").file("src/main/resources/${Constants.MOD_ID}.accesswidener")
     if (accessWidener.exists()) {
