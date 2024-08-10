@@ -1,13 +1,5 @@
 import dev.compasses.multiloader.Constants
-import gradle.kotlin.dsl.accessors._523dc74e2e9552463686721a7434f18b.loom
-import gradle.kotlin.dsl.accessors._523dc74e2e9552463686721a7434f18b.mappings
-import gradle.kotlin.dsl.accessors._523dc74e2e9552463686721a7434f18b.minecraft
-import gradle.kotlin.dsl.accessors._e054d9723d982fdb55b1e388b8ab0cbf.compileOnly
-import gradle.kotlin.dsl.accessors._e054d9723d982fdb55b1e388b8ab0cbf.processResources
-import org.gradle.api.tasks.compile.JavaCompile
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.invoke
-import org.gradle.kotlin.dsl.project
+import dev.compasses.multiloader.task.ProcessJsonTask
 
 plugins {
     id("multiloader-loader")
@@ -59,4 +51,19 @@ loom {
         defaultRefmapName = "${Constants.MOD_ID}.refmap.json"
         useLegacyMixinAp = false
     }
+}
+
+tasks.remapJar.configure {
+    archiveClassifier = "fat"
+}
+
+tasks.register("minJar", ProcessJsonTask::class) {
+    group = "multiloader"
+    dependsOn(tasks.remapJar)
+    input.set(tasks.remapJar.get().outputs.files.singleFile)
+    archiveClassifier = ""
+}
+
+tasks.build.configure {
+    dependsOn("minJar")
 }

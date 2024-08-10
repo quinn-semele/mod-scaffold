@@ -89,7 +89,9 @@ tasks.processResources {
     )
 
     inputs.properties(replacements)
-    filesMatching(listOf("fabric.mod.json", "quilt.mod.json", "META-INF/neoforge.mods.toml", "*.mixins.json")) {
+    filesMatching(listOf("fabric.mod.json", "quilt.mod.json", "META-INF/neoforge.mods.toml", "*.mixins.json", "*.mcmeta")) {
         expand(replacements)
     }
+
+    exclude(".cache/*")
 }

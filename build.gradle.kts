@@ -2,6 +2,7 @@ import dev.compasses.multiloader.Constants
 import dev.compasses.multiloader.extension.DependencyType
 import dev.compasses.multiloader.extension.MultiLoaderExtension
 import dev.compasses.multiloader.extension.UploadTarget
+import dev.compasses.multiloader.task.ProcessJsonTask
 import me.modmuss50.mpp.Platform
 import me.modmuss50.mpp.PublishModTask
 import me.modmuss50.mpp.PublishResult
@@ -99,11 +100,7 @@ val publishTasks = projectsToPublish.map { (name, loader) ->
                 version = "${Constants.MOD_VERSION}+${name.lowercase()}"
                 modLoaders.add(name.lowercase())
 
-                file = if (loader.extensions.findByName("loom") != null) {
-                    loader.tasks.getByName("remapJar", AbstractArchiveTask::class).archiveFile
-                } else {
-                    loader.tasks.getByName("jar", AbstractArchiveTask::class).archiveFile
-                }
+                file = loader.tasks.getByName("minJar", ProcessJsonTask::class).archiveFile
 
                 dependencies {
                     val multiloaderExt = loader.extensions.getByName<MultiLoaderExtension>("multiloader")
@@ -121,11 +118,7 @@ val publishTasks = projectsToPublish.map { (name, loader) ->
                 version = "${Constants.MOD_VERSION}+${name.lowercase()}"
                 modLoaders.add(name.lowercase())
 
-                file = if (loader.extensions.findByName("loom") != null) {
-                    loader.tasks.getByName("remapJar", AbstractArchiveTask::class).archiveFile
-                } else {
-                    loader.tasks.getByName("jar", AbstractArchiveTask::class).archiveFile
-                }
+                file = loader.tasks.getByName("minJar", ProcessJsonTask::class).archiveFile
 
                 dependencies {
                     val multiloaderExt = loader.extensions.getByName<MultiLoaderExtension>("multiloader")

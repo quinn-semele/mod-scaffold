@@ -1,4 +1,5 @@
 import dev.compasses.multiloader.Constants
+import dev.compasses.multiloader.task.ProcessJsonTask
 
 plugins {
     id("multiloader-loader")
@@ -35,4 +36,19 @@ neoForge {
 
 sourceSets.main {
     resources.srcDirs("src/generated/resources")
+}
+
+tasks.jar.configure {
+    archiveClassifier = "fat"
+}
+
+tasks.register("minJar", ProcessJsonTask::class) {
+    group = "multiloader"
+    dependsOn(tasks.jar)
+    input.set(tasks.jar.get().outputs.files.singleFile)
+    archiveClassifier = ""
+}
+
+tasks.build.configure {
+    dependsOn("minJar")
 }

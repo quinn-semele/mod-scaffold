@@ -32,4 +32,5 @@ kotlin {
 dependencies {
     implementation(group = "net.neoforged", name = "moddev-gradle", version = "1.0.15") // https://projects.neoforged.net/neoforged/moddevgradle/
     implementation(group = "fabric-loom", name = "fabric-loom.gradle.plugin", version = "1.7-SNAPSHOT") // https://fabricmc.net/develop/
+    implementation(group = "com.google.code.gson", name = "gson", version = "2.11.0")
 }
