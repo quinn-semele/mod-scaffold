@@ -24,6 +24,12 @@ tasks.wrapper {
     distributionType = Wrapper.DistributionType.BIN
 }
 
+gradle.taskGraph.whenReady {
+    if (hasTask(":publishMods") && !providers.environmentVariable("CI").isPresent) {
+        throw IllegalStateException("Cannot publish mods locally, please run the release workflow on GitHub.")
+    }
+}
+
 // This feels like a hack but I can't really think of a way to do this properly.
 evaluationDependsOnChildren()
 
