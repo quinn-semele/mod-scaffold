@@ -22,8 +22,20 @@ jobs:
           distribution: 'microsoft'
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
+      - name: publish mod
+        run: ./gradlew :publishMods
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
       - name: grab mod version
         id: grab_version
         run: ./gradlew -q :logVersion >> "$GITHUB_OUTPUT"
       - name: print version
         run: echo "${{ steps.grab_version.outputs.mod-version }}"
+      - name: Tag release
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.grab_version.outputs.mod-version }}
+          tag_prefix: ''
