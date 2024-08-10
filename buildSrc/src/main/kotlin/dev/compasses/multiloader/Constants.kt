@@ -36,6 +36,7 @@ object Constants {
     )
 
     val JAVA_VERSION = JavaLanguageVersion.of(21)
+    const val JETBRAIN_ANNOTATIONS_VERSION = "24.1.0"
 
     const val MIXIN_VERSION = "0.8.5"
     const val MIXIN_EXTRAS_VERSION = "0.3.5"

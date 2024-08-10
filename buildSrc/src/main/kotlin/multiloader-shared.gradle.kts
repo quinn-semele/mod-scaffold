@@ -44,6 +44,10 @@ repositories {
     }
 }
 
+dependencies {
+    compileOnly("org.jetbrains:annotations:${Constants.JETBRAIN_ANNOTATIONS_VERSION}")
+}
+
 tasks.jar {
     manifest {
         attributes(mapOf(
