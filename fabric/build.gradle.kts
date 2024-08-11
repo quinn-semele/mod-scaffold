@@ -1,5 +1,4 @@
 import dev.compasses.multiloader.Constants
-import dev.compasses.multiloader.extension.DependencyType
 
 plugins {
     id("multiloader-threadlike")
@@ -8,7 +7,7 @@ plugins {
 multiloader {
     dependencies {
         create("fabric-api") {
-            type = DependencyType.REQUIRED
+            required()
 
             artifacts {
                 modImplementation(group = "net.fabricmc", name = "fabric-loader", version = Constants.FABRIC_LOADER_VERSION)

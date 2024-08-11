@@ -1,9 +1,18 @@
 import dev.compasses.multiloader.Constants
+import dev.compasses.multiloader.multiloader
 import dev.compasses.multiloader.task.ProcessJsonTask
 
 plugins {
     id("multiloader-loader")
     id("net.neoforged.moddev")
+}
+
+evaluationDependsOn(":common")
+
+multiloader {
+    dependencies {
+        project.findProject(":common")!!.multiloader().cloneDependenciesInto(this)
+    }
 }
 
 neoForge {

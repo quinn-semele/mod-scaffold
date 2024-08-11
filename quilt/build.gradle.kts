@@ -1,5 +1,4 @@
 import dev.compasses.multiloader.Constants
-import dev.compasses.multiloader.extension.DependencyType
 
 plugins {
     id("multiloader-threadlike")
@@ -8,7 +7,7 @@ plugins {
 multiloader {
     dependencies {
         create("qsl") {
-            type = DependencyType.REQUIRED
+            required()
 
             requiresRepo("QuiltMC Maven", "https://maven.quiltmc.org/repository/release/", setOf(
                 "org.quiltmc",
