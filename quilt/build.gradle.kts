@@ -13,8 +13,7 @@ multiloader {
             requiresRepo("QuiltMC Maven", "https://maven.quiltmc.org/repository/release/", setOf(
                 "org.quiltmc",
                 "org.quiltmc.quilted-fabric-api"
-            )
-            )
+            ))
 
             artifacts {
                 modImplementation(group = "net.fabricmc", name = "fabric-loader", version = Constants.FABRIC_LOADER_VERSION)
