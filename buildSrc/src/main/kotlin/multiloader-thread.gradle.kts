@@ -6,7 +6,7 @@ import org.gradle.kotlin.dsl.invoke
 
 plugins {
     id("multiloader-loader")
-    id("fabric-loom")
+    id("org.quiltmc.loom")
 }
 
 evaluationDependsOn(":common")
