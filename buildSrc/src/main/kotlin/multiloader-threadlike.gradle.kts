@@ -76,3 +76,15 @@ tasks.register("minJar", ProcessJsonTask::class) {
 tasks.build.configure {
     dependsOn("minJar")
 }
+
+configurations.whenObjectAdded whenConfigurationAdded@ {
+    if (name == "modRuntimeClasspathMainMapped") {
+        dependencies.whenObjectAdded {
+            if (name == "fabric-loader" && group != "net.fabricmc") {
+                this@whenConfigurationAdded.exclude(group = group, module = name)
+            } else if (name == "quilt-loader" && group != "org.quiltmc") {
+                this@whenConfigurationAdded.exclude(group = group, module = name)
+            }
+        }
+    }
+}
