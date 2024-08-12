@@ -1,5 +1,5 @@
+import dev.compasses.multiloader.toTitleCase
 import dev.compasses.multiloader.Constants
-import dev.compasses.multiloader.multiloader
 import dev.compasses.multiloader.task.ProcessJsonTask
 
 plugins {
@@ -8,12 +8,6 @@ plugins {
 }
 
 evaluationDependsOn(":common")
-
-multiloader {
-    dependencies {
-        project.findProject(":common")!!.multiloader().cloneDependenciesInto(this)
-    }
-}
 
 neoForge {
     version = Constants.NEOFORGE_VERSION
@@ -28,7 +22,7 @@ neoForge {
     runs {
         configureEach {
             systemProperty("neoforge.enabledGameTestNamespaces", Constants.MOD_ID)
-            ideName = "NeoForge ${name.capitalize()} (${project.path})"
+            ideName = "NeoForge ${name.toTitleCase()} (${project.path})"
         }
 
         create("client") { client() }

@@ -26,27 +26,6 @@ abstract class ModDependency : Named {
         enabledAtRuntime.set(true)
     }
 
-    fun from(other: ModDependency) {
-        if (isFrozen) {
-            throw IllegalStateException("Cannot pull data from another dependency when frozen.")
-        }
-
-        modrinthName.set(other.modrinthName)
-        modrinthName.convention(other.modrinthName)
-
-        curseforgeName.set(other.curseforgeName)
-        curseforgeName.convention(other.curseforgeName)
-
-        type.set(other.type)
-        type.convention(other.type)
-
-        enabledAtRuntime.set(other.enabledAtRuntime)
-        enabledAtRuntime.convention(other.enabledAtRuntime)
-
-        repositories.addAll(other.repositories)
-        artifacts = other.artifacts
-    }
-
     fun freezeProperties() {
         isFrozen = true
 

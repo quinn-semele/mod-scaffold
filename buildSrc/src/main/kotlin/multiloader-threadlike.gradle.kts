@@ -1,5 +1,4 @@
 import dev.compasses.multiloader.Constants
-import dev.compasses.multiloader.multiloader
 import dev.compasses.multiloader.task.ProcessJsonTask
 
 plugins {
@@ -8,12 +7,6 @@ plugins {
 }
 
 evaluationDependsOn(":thread")
-
-multiloader {
-    dependencies {
-        project.findProject(":thread")!!.multiloader().cloneDependenciesInto(this)
-    }
-}
 
 configurations {
     create("threadJava") { isCanBeResolved = true }

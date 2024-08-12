@@ -67,18 +67,6 @@ abstract class MultiLoaderExtension(val project: Project) {
         listOf()
     }
 
-    fun cloneDependenciesInto(container: NamedDomainObjectContainer<ModDependency>) {
-        for (dependency in getDependencies()) {
-            if (container.findByName(dependency.name) != null) {
-                throw IllegalStateException("Did not plan for cloning dependencies into a partially filled container, please contact Quinn.")
-            }
-
-            container.create(dependency.name) {
-                from(dependency)
-            }
-        }
-    }
-
     fun getDependencyIds(target: UploadTarget, type: DependencyType): Set<String> {
         return getDependencies().filter { it.type.get() == type }.mapNotNull {
             when (target) {

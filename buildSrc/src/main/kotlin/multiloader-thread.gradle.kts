@@ -1,8 +1,4 @@
 import dev.compasses.multiloader.Constants
-import dev.compasses.multiloader.multiloader
-import gradle.kotlin.dsl.accessors._cbfc74c95d5f89f5a9d8d1cb7ae6b5ef.main
-import gradle.kotlin.dsl.accessors._cbfc74c95d5f89f5a9d8d1cb7ae6b5ef.sourceSets
-import org.gradle.kotlin.dsl.invoke
 
 plugins {
     id("multiloader-loader")
@@ -10,12 +6,6 @@ plugins {
 }
 
 evaluationDependsOn(":common")
-
-multiloader {
-    dependencies {
-        project.findProject(":common")!!.multiloader().cloneDependenciesInto(this)
-    }
-}
 
 dependencies {
     minecraft("com.mojang:minecraft:${Constants.MINECRAFT_VERSION}")
