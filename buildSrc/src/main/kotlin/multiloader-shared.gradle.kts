@@ -132,6 +132,7 @@ project.afterEvaluate {
         mod.type.convention(DependencyType.OPTIONAL)
         mod.curseforgeName.convention(mod.name)
         mod.modrinthName.convention(mod.name)
+        mod.enabledAtRuntime.convention(false)
         mod.generateSourceDirectory.convention(file("src/main/${name.replace("-", "_")}").exists())
     }
 
