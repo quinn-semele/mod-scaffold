@@ -5,7 +5,7 @@ plugins {
 }
 
 multiloader {
-    dependencies {
+    mods {
         create("qsl") {
             required()
 
