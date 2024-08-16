@@ -14,7 +14,6 @@ object Constants {
     val curseforgeProperties: CurseForgeProperties? = object : CurseForgeProperties() {
         override val projectId = "000000"
         override val projectSlug = "examplemod"
-
     }
 
     @Suppress("RedundantNullableReturnType")
