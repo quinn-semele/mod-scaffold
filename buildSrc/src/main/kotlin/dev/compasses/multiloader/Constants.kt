@@ -12,6 +12,10 @@ object Constants {
         Prints some information at start up to test this template.
     """
 
+    const val HOMEPAGE = "https://www.curseforge.com/minecraft/mc-mods/example-mod"
+    const val ISSUE_TRACKER = "https://github.com/Ghost/example-mod/issues"
+    const val SOURCES_URL = "https://github.com/Ghost/example-mod"
+
     @Suppress("RedundantNullableReturnType")
     val curseforgeProperties: CurseForgeProperties? = object : CurseForgeProperties() {
         override val projectId = "000000"
