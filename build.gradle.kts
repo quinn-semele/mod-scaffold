@@ -100,7 +100,7 @@ val publishTasks = projectsToPublish.map { (name, loader) ->
                 version = "${Constants.MOD_VERSION}+${name.lowercase()}"
                 modLoaders.add(name.lowercase())
 
-                file = loader.tasks.getByName("minJar", ProcessJsonTask::class).archiveFile
+                file = loader.tasks.getByName("processJson", ProcessJsonTask::class).archiveFile
 
                 dependencies {
                     val multiloaderExt = loader.extensions.getByName<MultiLoaderExtension>("multiloader")
@@ -118,7 +118,7 @@ val publishTasks = projectsToPublish.map { (name, loader) ->
                 version = "${Constants.MOD_VERSION}+${name.lowercase()}"
                 modLoaders.add(name.lowercase())
 
-                file = loader.tasks.getByName("minJar", ProcessJsonTask::class).archiveFile
+                file = loader.tasks.getByName("processJson", ProcessJsonTask::class).archiveFile
 
                 dependencies {
                     val multiloaderExt = loader.extensions.getByName<MultiLoaderExtension>("multiloader")
