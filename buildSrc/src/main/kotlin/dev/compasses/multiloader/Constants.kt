@@ -8,7 +8,9 @@ object Constants {
     const val MOD_NAME = "Example Mod"
     const val MOD_VERSION = "1.0.0"
     const val LICENSE = "CC0-1.0"
-    const val DESCRIPTION = ""
+    const val DESCRIPTION = """
+        Prints some information at start up to test this template.
+    """
 
     @Suppress("RedundantNullableReturnType")
     val curseforgeProperties: CurseForgeProperties? = object : CurseForgeProperties() {
