@@ -13,9 +13,7 @@ version = Constants.MOD_VERSION
 
 base.archivesName = "${Constants.MOD_ID}-${project.name}-${Constants.MINECRAFT_VERSION}"
 
-java {
-    toolchain.languageVersion = Constants.JAVA_VERSION
-}
+java.toolchain.languageVersion = Constants.JAVA_VERSION
 
 repositories {
     mavenCentral()
@@ -130,15 +128,15 @@ tasks.processResources {
 
 val multiLoaderExtension = extensions.create("multiloader", MultiLoaderExtension::class)
 
-project.afterEvaluate {
-    for (mod in multiLoaderExtension.mods) {
-        mod.type.convention(DependencyType.OPTIONAL)
-        mod.curseforgeName.convention(mod.name)
-        mod.modrinthName.convention(mod.name)
-        mod.enabledAtRuntime.convention(false)
-        mod.generateSourceDirectory.convention(mod.type.get() != DependencyType.DISABLED && file("src/main/${mod.name.replace("-", "_")}").exists())
-    }
+multiLoaderExtension.mods.configureEach {
+    type.convention(DependencyType.OPTIONAL)
+    curseforgeName.convention(name)
+    modrinthName.convention(name)
+    enabledAtRuntime.convention(false)
+    sourceDirectory.convention(project.layout.projectDirectory.dir("src/main/${name.replace("-", "_")}"))
+}
 
+project.afterEvaluate {
     val repositories: MutableMap<URI, RepositoryExclusions> = mutableMapOf()
 
     for (mod in multiLoaderExtension.mods) {
@@ -187,11 +185,11 @@ project.afterEvaluate {
         }
     }
 
-    val sourceDirectoryNames = multiLoaderExtension.mods.filter { it.generateSourceDirectory.get() }.map { it.name.replace("-", "_") }
-
     sourceSets.main.configure {
-        for (sourceDirectoryName in sourceDirectoryNames) {
-            java.srcDir("src/main/$sourceDirectoryName")
-        }
+        val directories = multiLoaderExtension.mods.filter { it.type.get() != DependencyType.DISABLED }
+            .map { it.sourceDirectory }
+            .filter { it.asFile.get().exists() }
+
+        java.srcDirs(directories)
     }
 }
