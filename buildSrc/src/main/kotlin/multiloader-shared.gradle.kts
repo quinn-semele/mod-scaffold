@@ -83,6 +83,8 @@ tasks.jar {
             "Built-On-Minecraft" to Constants.MINECRAFT_VERSION
         ))
     }
+
+    exclude("**/datagen/**")
 }
 
 tasks.processResources {
@@ -123,7 +125,7 @@ tasks.processResources {
         expand(replacements)
     }
 
-    exclude(".cache/*")
+    exclude(".cache/**")
 }
 
 val multiLoaderExtension = extensions.create("multiloader", MultiLoaderExtension::class)
