@@ -68,7 +68,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.jetbrains:annotations:${Constants.JETBRAIN_ANNOTATIONS_VERSION}")
+    compileOnly(group = "org.jetbrains", name = "annotations", version = Constants.JETBRAIN_ANNOTATIONS_VERSION)
+    compileOnly(group = "com.github.spotbugs", name = "spotbugs-annotations", version = Constants.SPOTBUGS_VERSION)
 }
 
 tasks.jar {
