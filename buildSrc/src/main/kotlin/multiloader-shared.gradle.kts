@@ -69,7 +69,7 @@ repositories {
 
 dependencies {
     compileOnly(group = "org.jetbrains", name = "annotations", version = Constants.JETBRAIN_ANNOTATIONS_VERSION)
-    compileOnly(group = "com.github.spotbugs", name = "spotbugs-annotations", version = Constants.SPOTBUGS_VERSION)
+    compileOnly(group = "com.google.code.findbugs", name = "jsr305", version = Constants.FINDBUGS_VERSION)
 }
 
 tasks.jar {
