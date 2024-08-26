@@ -40,6 +40,10 @@ object Constants {
 
     )
 
+    val EXTRA_MOD_INFO_REPLACEMENTS = mapOf<String, String>(
+
+    )
+
     val JAVA_VERSION = JavaLanguageVersion.of(21)
     const val JETBRAIN_ANNOTATIONS_VERSION = "24.1.0"
     const val FINDBUGS_VERSION = "3.0.2"

@@ -121,6 +121,7 @@ tasks.processResources {
         "neoforge_version" to Constants.NEOFORGE_VERSION,
         "fml_version_constraint" to Constants.FML_CONSTRAINT,
     )
+    replacements.putAll(Constants.EXTRA_MOD_INFO_REPLACEMENTS)
 
     inputs.properties(replacements)
     filesMatching(listOf("fabric.mod.json", "quilt.mod.json", "META-INF/neoforge.mods.toml", "*.mixins.json", "*.mcmeta")) {
