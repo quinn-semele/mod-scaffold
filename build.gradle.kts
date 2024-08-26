@@ -89,10 +89,7 @@ publishMods {
         ReleaseType.STABLE
     }
 
-    dryRun = providers.provider {
-        (Constants.curseforgeProperties != null && !curseforgeOptions!!.get().accessToken.isPresent) ||
-                 (Constants.modrinthProperties != null && !modrinthOptions!!.get().accessToken.isPresent)
-    }
+    dryRun = providers.environmentVariable("MULTILOADER_DRY_RUN").map { true }.orElse(false)
 }
 
 val publishTasks = projectsToPublish.map { (name, loader) ->
