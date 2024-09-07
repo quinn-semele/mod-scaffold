@@ -7,6 +7,11 @@ on:
         required: true
         type: boolean
         default: false
+      ignoreCache:
+        description: "Ignore Gradle Cache"
+        required: true
+        type: boolean
+        default: false
 jobs:
   release:
     permissions:
@@ -36,6 +41,8 @@ jobs:
         run: chmod +x ./gradlew
       - name: setup gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-write-only: ${{ github.event.inputs.ignoreCache }}
       - name: publish mod
         run: ./gradlew :publishMods
         env:
