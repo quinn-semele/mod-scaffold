@@ -88,7 +88,7 @@ publishMods {
         ReleaseType.STABLE
     }
 
-    dryRun = providers.environmentVariable("MULTILOADER_DRY_RUN").map { true }.orElse(false)
+    dryRun = providers.environmentVariable("MULTILOADER_DRY_RUN").map { it == "true" }.orElse(false)
 }
 
 val publishTasks = projectsToPublish.map { (name, loader) ->
