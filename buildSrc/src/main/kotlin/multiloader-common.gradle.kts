@@ -21,6 +21,7 @@ dependencies {
 
 configurations {
     create("commonJava") { isCanBeResolved = false; isCanBeConsumed = true }
+    create("commonKotlin") { isCanBeResolved = false; isCanBeConsumed = true }
     create("commonResources") { isCanBeResolved = false; isCanBeConsumed = true }
 }
 
@@ -28,6 +29,7 @@ afterEvaluate {
     with(sourceSets.main.get()) {
         artifacts {
             java.sourceDirectories.forEach { add("commonJava", it) }
+            kotlin.sourceDirectories.forEach { add("commonKotlin", it) }
             resources.sourceDirectories.forEach { add("commonResources", it) }
         }
     }

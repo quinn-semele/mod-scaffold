@@ -14,5 +14,15 @@ multiloader {
                 modImplementation(group = "org.quiltmc.quilted-fabric-api", name = "quilted-fabric-api", version = Constants.QUILT_API_VERSION)
             }
         }
+
+        if (extensions.findByName("kotlin") != null) {
+            create("fabric-language-kotlin") {
+                required()
+
+                artifacts {
+                    modImplementation(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION)
+                }
+            }
+        }
     }
 }

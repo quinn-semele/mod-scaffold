@@ -3,10 +3,13 @@ import dev.compasses.multiloader.extension.DependencyType
 import dev.compasses.multiloader.extension.ModDependency
 import dev.compasses.multiloader.extension.MultiLoaderExtension
 import dev.compasses.multiloader.extension.RepositoryExclusions
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import java.net.URI
 
 plugins {
     `java-library`
+    kotlin("jvm") // Comment out if you don't want Kotlin.
 }
 
 group = Constants.GROUP
@@ -15,6 +18,13 @@ version = Constants.MOD_VERSION
 base.archivesName = "${Constants.MOD_ID}-${project.name}-${Constants.MINECRAFT_VERSION}"
 
 java.toolchain.languageVersion = Constants.JAVA_VERSION
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_21
+        languageVersion = KotlinVersion.KOTLIN_2_0
+    }
+}
 
 repositories {
     mavenCentral()
@@ -64,6 +74,18 @@ repositories {
         }
         filter {
             includeGroup("maven.modrinth")
+        }
+    }
+
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Kotlin for Forge Maven"
+                url = uri("https://thedarkcolour.github.io/KotlinForForge/")
+            }
+        }
+        filter {
+            includeGroup("thedarkcolour")
         }
     }
 }
@@ -124,7 +146,12 @@ tasks.processResources {
 
         "neoforge_version" to Constants.NEOFORGE_VERSION,
         "fml_version_constraint" to Constants.FML_CONSTRAINT,
-    )
+    ).also {
+        if (extensions.findByName("kotlin") != null) {
+            it["fabric_kotlin_version"] = Constants.FABRIC_KOTLIN_VERSION
+            it["neoforge_kotlin_Version"] = Constants.NEOFORGE_KOTLIN_VERSION
+        }
+    }
     replacements.putAll(Constants.EXTRA_MOD_INFO_REPLACEMENTS)
 
     inputs.properties(replacements)

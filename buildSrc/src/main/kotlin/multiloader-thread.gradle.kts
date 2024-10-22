@@ -18,6 +18,10 @@ dependencies {
 
     modCompileOnly(modRuntimeOnly("net.fabricmc:fabric-loader:${Constants.FABRIC_LOADER_VERSION}")!!)
     modCompileOnly(modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:${Constants.FABRIC_API_VERSION}")!!)
+
+    if (extensions.findByName("kotlin") != null) {
+        modImplementation(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION)
+    }
 }
 
 fabricApi {
@@ -63,6 +67,7 @@ loom {
 
 configurations {
     create("threadJava") { isCanBeResolved = false; isCanBeConsumed = true }
+    create("threadKotlin") { isCanBeResolved = false; isCanBeConsumed = true }
     create("threadResources") { isCanBeResolved = false; isCanBeConsumed = true }
 }
 
@@ -70,6 +75,7 @@ afterEvaluate {
     with(sourceSets.main.get()) {
         artifacts {
             java.sourceDirectories.forEach { add("threadJava", it) }
+            kotlin.sourceDirectories.forEach { add("threadKotlin", it) }
             resources.sourceDirectories.forEach { add("threadResources", it) }
         }
     }

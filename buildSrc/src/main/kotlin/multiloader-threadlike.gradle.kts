@@ -1,5 +1,6 @@
 import dev.compasses.multiloader.Constants
 import dev.compasses.multiloader.task.ProcessJsonTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("multiloader-loader")
@@ -10,6 +11,7 @@ evaluationDependsOn(":thread")
 
 configurations {
     create("threadJava") { isCanBeResolved = true }
+    create("threadKotlin") { isCanBeResolved = true }
     create("threadResources") { isCanBeResolved = true }
 }
 
@@ -25,6 +27,7 @@ dependencies {
     compileOnly(project(":thread"))
 
     "threadJava"(project(path=":thread", configuration="threadJava"))
+    "threadKotlin"(project(path=":thread", configuration="threadKotlin"))
     "threadResources"(project(path=":thread", configuration="threadResources"))
 }
 
@@ -32,6 +35,11 @@ tasks {
     "compileJava"(JavaCompile::class) {
         dependsOn(configurations.getByName("threadJava"))
         source(configurations.getByName("threadJava"))
+    }
+
+    "compileKotlin"(KotlinCompile::class) {
+        dependsOn(configurations.getByName("threadKotlin"))
+        source(configurations.getByName("threadKotlin"))
     }
 
     processResources {

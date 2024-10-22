@@ -62,6 +62,7 @@ object Constants {
 
     // https://fabricmc.net/develop/
     const val FABRIC_API_VERSION = "0.102.0+1.21"
+    const val FABRIC_KOTLIN_VERSION = "1.12.3+kotlin.2.0.21" // todo: replace with Quilt Kotlin Libraries; Not the latest to keep in sync with KFF
     const val FABRIC_LOADER_VERSION = "0.15.11"
 
     // https://quiltmc.org/en/usage/latest-versions/
@@ -70,5 +71,6 @@ object Constants {
 
     const val NEOFORM_VERSION = "1.21-20240613.152323" // // https://projects.neoforged.net/neoforged/neoform/
     const val NEOFORGE_VERSION = "21.0.143" // https://projects.neoforged.net/neoforged/neoforge/
+    const val NEOFORGE_KOTLIN_VERSION = "5.6.0" // todo: we really ought to not use this, replace with own fork of Quilt Kotlin Libraries
     const val FML_CONSTRAINT = "[4,)" // https://projects.neoforged.net/neoforged/fancymodloader/
 }
