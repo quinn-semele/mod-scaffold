@@ -92,7 +92,7 @@ publishMods {
 }
 
 val publishTasks = projectsToPublish.map { (name, loader) ->
-    name to buildList {
+    name to buildList<NamedDomainObjectProvider<out Platform>> {
         Constants.curseforgeProperties?.run {
             add(publishMods.curseforge("CurseForge$name") {
                 from(curseforgeOptions!!)
@@ -108,7 +108,7 @@ val publishTasks = projectsToPublish.map { (name, loader) ->
                     optional(*multiloaderExt.getDependencyIds(UploadTarget.CURSEFORGE, DependencyType.OPTIONAL).toTypedArray())
                     requires(*multiloaderExt.getDependencyIds(UploadTarget.CURSEFORGE, DependencyType.REQUIRED).toTypedArray())
                 }
-            } as NamedDomainObjectProvider<Platform>)
+            })
         }
 
         Constants.modrinthProperties?.run {
@@ -126,7 +126,7 @@ val publishTasks = projectsToPublish.map { (name, loader) ->
                     optional(*multiloaderExt.getDependencyIds(UploadTarget.MODRINTH, DependencyType.OPTIONAL).toTypedArray())
                     requires(*multiloaderExt.getDependencyIds(UploadTarget.MODRINTH, DependencyType.REQUIRED).toTypedArray())
                 }
-            } as NamedDomainObjectProvider<Platform>)
+            })
         }
     }
 }.toMap()
