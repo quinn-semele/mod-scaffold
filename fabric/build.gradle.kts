@@ -20,16 +20,11 @@ multiloader {
                 required()
 
                 artifacts {
-                    modImplementation(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION)
+                    modImplementation(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION) {
+                        exclude(group = "net.fabricmc", module = "fabric-loader")
+                    }
                 }
             }
         }
-    }
-}
-
-// todo: Find out what is pulling in a newer/different mixin version
-configurations.all {
-    resolutionStrategy {
-        force("net.fabricmc:fabric-loader:${Constants.FABRIC_LOADER_VERSION}")
     }
 }

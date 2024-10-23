@@ -20,15 +20,11 @@ multiloader {
                 required()
 
                 artifacts {
-                    modImplementation(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION)
+                    modImplementation(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION) {
+                        exclude(group = "net.fabricmc", module = "fabric-loader")
+                    }
                 }
             }
         }
-    }
-}
-
-configurations.all {
-    resolutionStrategy {
-        force("org.quiltmc:quilt-loader:${Constants.QUILT_LOADER_VERSION}")
     }
 }
