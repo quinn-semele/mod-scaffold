@@ -6,7 +6,7 @@ plugins {
 
 multiloader {
     mods {
-        if (extensions.findByName("kotlin") != null) {
+        if (plugins.hasPlugin("org.jetbrains.kotlin.jvm")) {
             create("kotlin-for-forge") {
                 required()
 

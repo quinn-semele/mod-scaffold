@@ -15,7 +15,7 @@ multiloader {
             }
         }
 
-        if (extensions.findByName("kotlin") != null) {
+        if (plugins.hasPlugin("org.jetbrains.kotlin.jvm")) {
             create("fabric-language-kotlin") {
                 required()
 
@@ -24,5 +24,11 @@ multiloader {
                 }
             }
         }
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force("org.quiltmc:quilt-loader:${Constants.QUILT_LOADER_VERSION}")
     }
 }

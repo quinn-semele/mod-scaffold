@@ -89,15 +89,3 @@ tasks.register("processJson", ProcessJsonTask::class) {
 tasks.build {
     dependsOn("processJson")
 }
-
-configurations.configureEach configureConfiguration@ {
-    if (name == "modRuntimeClasspathMainMapped") {
-        dependencies.configureEach {
-            if (name == "fabric-loader" && group == "net.fabricmc") {
-                this@configureConfiguration.exclude(group = group, module = name)
-            } else if (name == "quilt-loader" && group == "org.quiltmc") {
-                this@configureConfiguration.exclude(group = group, module = name)
-            }
-        }
-    }
-}

@@ -22,6 +22,12 @@ versionRange = "[${neoforge_version},)"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies.${mod_id}]]
+modId = "kotlinforforge"
+type = "required"
+versionRange = "[${neoforge_kotlin_Version},)"
+ordering = "NONE"
+side = "BOTH"
+[[dependencies.${mod_id}]]
 modId = "minecraft"
 type = "required"
 versionRange = "${nf_minecraft_constraint}"

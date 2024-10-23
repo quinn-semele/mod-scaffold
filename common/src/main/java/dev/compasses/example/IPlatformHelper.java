@@ -1,4 +1,4 @@
-package com.example.examplemod.platform.services;
+package dev.compasses.example;
 
 public interface IPlatformHelper {
     /**

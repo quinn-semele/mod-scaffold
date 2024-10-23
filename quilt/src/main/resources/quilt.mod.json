@@ -20,7 +20,10 @@
     },
     "intermediate_mappings": "net.fabricmc:intermediary",
     "entrypoints": {
-      "main": "com.example.examplemod.ExampleMod"
+      "main": {
+        "adapter": "kotlin",
+        "value": "dev.compasses.example.ExampleMod"
+      }
     },
     "depends": [
       {
@@ -30,6 +33,10 @@
       {
         "id": "quilted_fabric_api",
         "versions": ">=${quilt_api_version}"
+      },
+      {
+        "id": "fabric-language-kotlin",
+        "versions": ">={fabric_kotlin_version}"
       },
       {
         "id": "minecraft",

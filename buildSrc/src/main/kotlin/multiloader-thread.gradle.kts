@@ -19,7 +19,7 @@ dependencies {
     modCompileOnly(modRuntimeOnly("net.fabricmc:fabric-loader:${Constants.FABRIC_LOADER_VERSION}")!!)
     modCompileOnly(modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:${Constants.FABRIC_API_VERSION}")!!)
 
-    if (extensions.findByName("kotlin") != null) {
+    if (plugins.hasPlugin("org.jetbrains.kotlin.jvm")) {
         modImplementation(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION)
     }
 }
@@ -81,14 +81,8 @@ afterEvaluate {
     }
 }
 
-configurations.configureEach configureConfiguration@ {
-    if (name == "modRuntimeClasspathMainMapped") {
-        dependencies.configureEach {
-            if (name == "fabric-loader" && group == "net.fabricmc") {
-                this@configureConfiguration.exclude(group = group, module = name)
-            } else if (name == "quilt-loader" && group == "org.quiltmc") {
-                this@configureConfiguration.exclude(group = group, module = name)
-            }
-        }
+configurations.all {
+    resolutionStrategy {
+        force("net.fabricmc:fabric-loader:${Constants.FABRIC_LOADER_VERSION}")
     }
 }

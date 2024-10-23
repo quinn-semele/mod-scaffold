@@ -15,7 +15,7 @@ multiloader {
             }
         }
 
-        if (extensions.findByName("kotlin") != null) {
+        if (plugins.hasPlugin("org.jetbrains.kotlin.jvm")) {
             create("fabric-language-kotlin") {
                 required()
 
@@ -24,5 +24,12 @@ multiloader {
                 }
             }
         }
+    }
+}
+
+// todo: Find out what is pulling in a newer/different mixin version
+configurations.all {
+    resolutionStrategy {
+        force("net.fabricmc:fabric-loader:${Constants.FABRIC_LOADER_VERSION}")
     }
 }

@@ -147,7 +147,7 @@ tasks.processResources {
         "neoforge_version" to Constants.NEOFORGE_VERSION,
         "fml_version_constraint" to Constants.FML_CONSTRAINT,
     ).also {
-        if (extensions.findByName("kotlin") != null) {
+        if (plugins.hasPlugin("org.jetbrains.kotlin.jvm")) {
             it["fabric_kotlin_version"] = Constants.FABRIC_KOTLIN_VERSION
             it["neoforge_kotlin_Version"] = Constants.NEOFORGE_KOTLIN_VERSION
         }
