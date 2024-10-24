@@ -19,10 +19,8 @@ dependencies {
     modCompileOnly(modRuntimeOnly("net.fabricmc:fabric-loader:${Constants.FABRIC_LOADER_VERSION}")!!)
     modCompileOnly(modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:${Constants.FABRIC_API_VERSION}")!!)
 
-    if (plugins.hasPlugin("org.jetbrains.kotlin.jvm")) {
-        modImplementation(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION) {
-            exclude(group = "net.fabricmc", module = "fabric-loader")
-        }
+    modImplementation(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION) {
+        exclude(group = "net.fabricmc", module = "fabric-loader")
     }
 }
 

@@ -15,14 +15,12 @@ multiloader {
             }
         }
 
-        if (plugins.hasPlugin("org.jetbrains.kotlin.jvm")) {
-            create("fabric-language-kotlin") {
-                required()
+        create("fabric-language-kotlin") {
+            required()
 
-                artifacts {
-                    modImplementation(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION) {
-                        exclude(group = "net.fabricmc", module = "fabric-loader")
-                    }
+            artifacts {
+                modImplementation(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION) {
+                    exclude(group = "net.fabricmc", module = "fabric-loader")
                 }
             }
         }
