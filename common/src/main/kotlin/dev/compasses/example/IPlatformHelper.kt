@@ -6,7 +6,7 @@ interface IPlatformHelper {
      *
      * @return The name of the current platform.
      */
-    fun getPlatformName(): String
+    val platformName: String
 
     /**
      * Checks if a mod with the given id is loaded.
@@ -28,7 +28,6 @@ interface IPlatformHelper {
      *
      * @return The name of the environment type.
      */
-    fun getEnvironmentName(): String {
-        return if (isDevelopmentEnvironment()) "development" else "production"
-    }
+    val environmentName: String
+        get() = if (isDevelopmentEnvironment()) "development" else "production"
 }

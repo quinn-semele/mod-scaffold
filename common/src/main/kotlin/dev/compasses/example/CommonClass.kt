@@ -11,8 +11,8 @@ object CommonClass {
 
         Constants.LOG.info(
             "Hello from Common init on {}! we are currently in a {} environment!",
-            PLATFORM_HELPER.getPlatformName(),
-            PLATFORM_HELPER.getEnvironmentName()
+            PLATFORM_HELPER.platformName,
+            PLATFORM_HELPER.environmentName
         )
         Constants.LOG.info("The ID for diamonds is {}", BuiltInRegistries.ITEM.getKey(Items.DIAMOND))
 
