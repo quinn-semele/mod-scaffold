@@ -19,13 +19,13 @@
     "main": [
       {
         "adapter": "kotlin",
-        "value": "dev.compasses.example.ExampleMod"
+        "value": "dev.compasses.example.ThreadMain"
       }
     ]
   },
   "mixins": [
     "${mod_id}.mixins.json",
-    "${mod_id}.fabric.mixins.json"
+    "${mod_id}.thread.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",

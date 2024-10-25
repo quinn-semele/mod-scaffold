@@ -3,7 +3,7 @@ package dev.compasses.example
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.Items
 
-object CommonClass {
+object CommonMain {
     lateinit var PLATFORM_HELPER: IPlatformHelper
 
     fun init(helper: IPlatformHelper) {

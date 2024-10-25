@@ -1,5 +1,4 @@
 import dev.compasses.multiloader.Constants
-import gradle.kotlin.dsl.accessors._a87ff6e8de49377acc07e836f6f5893d.modImplementation
 
 plugins {
     id("multiloader-shared")
@@ -15,11 +14,25 @@ neoForge {
     }
 }
 
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "FabricMC's Maven"
+                url = uri("https://maven.fabricmc.net/")
+            }
+        }
+        filter {
+            includeGroup("net.fabricmc")
+        }
+    }
+}
+
 dependencies {
     compileOnly(group = "org.spongepowered", name = "mixin", version = Constants.MIXIN_VERSION)
     annotationProcessor(compileOnly(group = "io.github.llamalad7", name = "mixinextras-common", version = Constants.MIXIN_EXTRAS_VERSION))
 
-    compileOnly(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION) {
+    implementation(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION) {
         exclude(group = "net.fabricmc", module = "fabric-loader")
     }
 }
