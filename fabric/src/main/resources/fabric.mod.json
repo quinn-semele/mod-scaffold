@@ -17,16 +17,20 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "com.example.examplemod.ExampleMod"
+            {
+                "adapter": "kotlin",
+                "value": "dev.compasses.example.ThreadMain"
+            }
         ]
     },
     "mixins": [
-        "${mod_id}.mixins.json",
-        "${mod_id}.fabric.mixins.json"
+        "${mod_id}.common.mixins.json",
+        "${mod_id}.thread.mixins.json"
     ],
     "depends": {
         "fabricloader": ">=${fabric_loader_version}",
         "fabric-api": ">=${fabric_api_version}",
+        "fabric-language-kotlin": ">=${fabric_kotlin_version}",
         "minecraft": "${fl_minecraft_constraint}",
         "java": ">=${java_version}"
     }

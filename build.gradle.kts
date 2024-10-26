@@ -20,8 +20,8 @@ plugins {
 // To update run the :wrapper task, update values here as required from the gradle site below.
 // https://gradle.org/release-checksums/
 tasks.wrapper {
-    gradleVersion = "8.10"
-    distributionSha256Sum = "5b9c5eb3f9fc2c94abaea57d90bd78747ca117ddbbf96c859d3741181a12bf2a"
+    gradleVersion = "8.10.2"
+    distributionSha256Sum = "31c55713e40233a8303827ceb42ca48a47267a0ad4bab9177123121e71524c26"
     distributionType = Wrapper.DistributionType.BIN
 }
 

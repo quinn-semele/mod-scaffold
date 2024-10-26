@@ -14,5 +14,15 @@ multiloader {
                 modImplementation(group = "net.fabricmc.fabric-api", name = "fabric-api", version = Constants.FABRIC_API_VERSION)
             }
         }
+
+        create("fabric-language-kotlin") {
+            required()
+
+            artifacts {
+                modImplementation(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION) {
+                    exclude(group = "net.fabricmc", module = "fabric-loader")
+                }
+            }
+        }
     }
 }
