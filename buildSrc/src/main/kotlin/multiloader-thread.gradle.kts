@@ -1,11 +1,10 @@
 import dev.compasses.multiloader.Constants
 
 plugins {
-    id("multiloader-loader")
+    id("multiloader-parent")
+    id("multiloader-child")
     id("org.quiltmc.loom")
 }
-
-evaluationDependsOn(":common")
 
 dependencies {
     minecraft("com.mojang:minecraft:${Constants.MINECRAFT_VERSION}")
@@ -39,7 +38,6 @@ loom {
 
     @Suppress("UnstableApiUsage")
     mixin {
-        defaultRefmapName = "${Constants.MOD_ID}.refmap.json"
         useLegacyMixinAp = false
     }
 
@@ -61,22 +59,6 @@ loom {
         named("datagen") {
             configName = "Thread Data"
             isIdeConfigGenerated = true
-        }
-    }
-}
-
-configurations {
-    create("threadJava") { isCanBeResolved = false; isCanBeConsumed = true }
-    create("threadKotlin") { isCanBeResolved = false; isCanBeConsumed = true }
-    create("threadResources") { isCanBeResolved = false; isCanBeConsumed = true }
-}
-
-afterEvaluate {
-    with(sourceSets.main.get()) {
-        artifacts {
-            java.sourceDirectories.forEach { add("threadJava", it) }
-            kotlin.sourceDirectories.forEach { add("threadKotlin", it) }
-            resources.sourceDirectories.forEach { add("threadResources", it) }
         }
     }
 }

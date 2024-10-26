@@ -140,13 +140,13 @@ tasks.processResources {
 
         "fabric_loader_version" to Constants.FABRIC_LOADER_VERSION,
         "fabric_api_version" to Constants.FABRIC_API_VERSION,
+        "fabric_kotlin_version" to Constants.FABRIC_KOTLIN_VERSION,
 
         "quilt_loader_version" to Constants.QUILT_LOADER_VERSION,
         "quilt_api_version" to Constants.QUILT_API_VERSION,
 
-        "neoforge_version" to Constants.NEOFORGE_VERSION,
         "fml_version_constraint" to Constants.FML_CONSTRAINT,
-        "fabric_kotlin_version" to Constants.FABRIC_KOTLIN_VERSION,
+        "neoforge_version" to Constants.NEOFORGE_VERSION,
         "neoforge_kotlin_Version" to Constants.NEOFORGE_KOTLIN_VERSION
     )
     replacements.putAll(Constants.EXTRA_MOD_INFO_REPLACEMENTS)

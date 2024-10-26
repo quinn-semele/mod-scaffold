@@ -1,7 +1,7 @@
 import dev.compasses.multiloader.Constants
 
 plugins {
-    id("multiloader-shared")
+    id("multiloader-parent")
     id("net.neoforged.moddev")
 }
 
@@ -34,21 +34,5 @@ dependencies {
 
     implementation(group = "net.fabricmc", name = "fabric-language-kotlin", version = Constants.FABRIC_KOTLIN_VERSION) {
         exclude(group = "net.fabricmc", module = "fabric-loader")
-    }
-}
-
-configurations {
-    create("commonJava") { isCanBeResolved = false; isCanBeConsumed = true }
-    create("commonKotlin") { isCanBeResolved = false; isCanBeConsumed = true }
-    create("commonResources") { isCanBeResolved = false; isCanBeConsumed = true }
-}
-
-afterEvaluate {
-    with(sourceSets.main.get()) {
-        artifacts {
-            java.sourceDirectories.forEach { add("commonJava", it) }
-            kotlin.sourceDirectories.forEach { add("commonKotlin", it) }
-            resources.sourceDirectories.forEach { add("commonResources", it) }
-        }
     }
 }
