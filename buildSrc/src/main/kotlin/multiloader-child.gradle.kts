@@ -50,7 +50,9 @@ tasks {
     processResources {
         parents.forEach {
             dependsOn(configurations.getByName("${it}Resources"))
-            from(configurations.getByName("${it}Resources"))
+            from(configurations.getByName("${it}Resources")) {
+                exclude("fabric.mod.json")
+            }
         }
     }
 }
